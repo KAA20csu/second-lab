@@ -7,24 +7,24 @@
     android:minHeight="30dp">
 
     <com.google.android.material.card.MaterialCardView
-        app:strokeColor="@color/black"
-        app:strokeWidth="1px"
-        app:cardCornerRadius="12px"
         android:id="@+id/card"
-        android:minHeight="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:minHeight="30dp"
         android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:cardCornerRadius="12px"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1px"
+        tools:layout_editor_absoluteX="8dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            app:cardCornerRadius="12px"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="30dp">
+            android:minHeight="30dp"
+            app:cardCornerRadius="12px">
+
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="15dp"
@@ -55,12 +55,16 @@
                 android:id="@+id/subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
                 android:text="Awesome title"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textFontWeight="500"
                 android:textSize="16px"
-                tools:layout_editor_absoluteX="30dp"
-                tools:layout_editor_absoluteY="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

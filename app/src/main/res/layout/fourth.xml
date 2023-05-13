@@ -10,12 +10,10 @@
         app:strokeWidth="1px"
         app:cardCornerRadius="12px"
         android:id="@+id/card"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="400dp"
         android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardBody"

@@ -1,13 +1,16 @@
 package com.example.second_lab
 
+import android.graphics.Color
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 class CardAdapter() :
     androidx.recyclerview.widget.ListAdapter<AbstractCard, CardAdapter.CardViewHolder>(CardDiffUtil()) {
@@ -40,13 +43,18 @@ class CardAdapter() :
         private val title by lazy { itemView.findViewById<TextView?>(R.id.title) }
         private val subtitle by lazy { itemView.findViewById<TextView?>(R.id.subtitle) }
         private val img by lazy { itemView.findViewById<ImageView?>(R.id.img) }
-        private val hasBag by lazy { itemView.findViewById<TextView?>(R.id.bag) }
+        private val bag by lazy { itemView.findViewById<LinearLayout?>(R.id.bag) }
 
         fun bind(abstractCard: AbstractCard) {
-            img?.setImageURI(Uri.parse(abstractCard.img))
+            // img?.setImageURI(Uri.parse(abstractCard.img))
             title?.text = abstractCard.title
             subtitle?.text = abstractCard.subtitle
-            hasBag?.text = abstractCard.hasBag
+            if(abstractCard.img != null) {
+                Picasso.get().load(abstractCard.img).into(img)
+            }
+            if(abstractCard.hasBag != null) {
+                bag.setBackgroundColor(Color.parseColor(abstractCard.hasBag))
+            }
         }
     }
 

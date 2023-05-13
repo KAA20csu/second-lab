@@ -4,10 +4,10 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import java.net.URL
 
+
 class ReceiveService {
-    companion object {
-        const val MODELS_DOMAIN = "https://develtop.ru/study/new_text.json"
-    }
+
+    private val MODELS_DOMAIN = "https://develtop.ru/study/new_text.json"
     fun getItems() : String {
         return URL(MODELS_DOMAIN).openStream()
             .bufferedReader()

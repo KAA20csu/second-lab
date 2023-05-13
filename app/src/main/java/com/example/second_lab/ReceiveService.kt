@@ -8,13 +8,37 @@ class ReceiveService {
     companion object {
         const val MODELS_DOMAIN = "https://develtop.ru/study/new_text.json"
     }
-    fun getQuestions() : String {
+    fun getItems() : String {
         return URL(MODELS_DOMAIN).openStream()
             .bufferedReader()
             .use { it.readText() }
     }
-    fun serializeQuestions(response: String): List<ReceiveModel> {
+    fun serializeItems(response: String): List<ReceiveModel> {
         val mapper = jacksonObjectMapper()
         return mapper.readValue(response)
+    }
+
+    fun getCards(items: List<ReceiveModel>): MutableList<AbstractCard> {
+        val cards : MutableList<AbstractCard> = listOf<AbstractCard>().toMutableList()
+        for (card in items) {
+            cards.add(getCardType(card))
+        }
+        return cards
+    }
+    private fun getCardType(item: ReceiveModel): AbstractCard {
+        if(item.img == null) {
+            return ThirdCard(item.title, item.subtitle)
+        }
+        if(item.hasBag == null && item.isCircle == null) {
+            return SecondCard(item.img, item.title, item.subtitle)
+        }
+
+        if(item.isCircle != null) {
+            return FourthCard(item.img, item.title, item.subtitle)
+        }
+        if(item.hasBag != null) {
+            return FirstCard(item.img, item.title, item.subtitle, item.hasBag)
+        }
+        return ThirdCard(item.title, item.subtitle)
     }
 }

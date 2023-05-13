@@ -3,7 +3,6 @@ package com.example.second_lab
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
-import androidx.fragment.app.FragmentManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,45 +12,15 @@ class MainActivity : AppCompatActivity() {
         StrictMode.setThreadPolicy(policy)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val cards : MutableList<AbstractCard> = listOf<AbstractCard>().toMutableList()
-        // for testing requests
+
+        // Request for cards
         val service = ReceiveService()
-        val objects = service.getQuestions()
-        val test1 = service.serializeQuestions(objects)
+        val items = service.getItems()
+        val receivedModels = service.serializeItems(items)
 
-        for (card in test1) {
-            if( card.img != null
-                && card.title != null
-                && card.subtitle != null
-                && card.hasBag != null) {
-                cards.add(FirstCard(card.img, card.title, card.subtitle, card.hasBag))
-            }
-
-            if(card.img != null
-                && card.title != null
-                && card.subtitle != null
-                && card.hasBag == null
-                && card.isCircle == null) {
-                cards.add(SecondCard(card.img, card.title, card.subtitle))
-            }
-            if(card.img == null
-                && card.title != null
-                && card.subtitle != null
-                && card.hasBag == null
-                && card.isCircle == null) {
-                cards.add(ThirdCard(card.title, card.subtitle))
-            }
-            if(card.img != null
-                && card.title != null
-                && card.subtitle != null
-                && card.hasBag == null
-                && card.isCircle != null) {
-                cards.add(FourthCard(card.img, card.title, card.subtitle))
-            }
-        }
-
+        // Set cards to the recycler view
         val ft = supportFragmentManager.beginTransaction()
-        val fragmentTest = MainFragment(cards)
+        val fragmentTest = MainFragment(service.getCards(receivedModels))
         ft.replace(R.id.fragmentContainerView, fragmentTest)
         ft.commit()
     }

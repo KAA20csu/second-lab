@@ -1,18 +1,24 @@
 package com.example.second_lab
 
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private var retrofit: Retrofit? = null
+    private const val baseUrl = "https://develtop.ru/study/"
 
-    fun getClient(baseUrl: String): Retrofit {
-        if (retrofit == null) {
-            retrofit = Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-        return retrofit!!
+    private val retrofit by lazy {
+        val okHttpClient = OkHttpClient.Builder()
+            .build()
+
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+    }
+
+    val jsonApi: JsonApi by lazy {
+        retrofit.create(JsonApi::class.java)
     }
 }

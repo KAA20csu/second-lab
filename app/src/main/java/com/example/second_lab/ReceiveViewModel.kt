@@ -8,8 +8,8 @@ import kotlinx.coroutines.launch
 
 class NewTextViewModel: ViewModel() {
 
-    private val _models = MutableLiveData<ReceiveModel>()
-    val newText: LiveData<ReceiveModel> = _models
+    private val _models = MutableLiveData<List<ReceiveModel>>()
+    val newText: LiveData<List<ReceiveModel>> = _models
 
     fun loadNewText() {
         viewModelScope.launch {

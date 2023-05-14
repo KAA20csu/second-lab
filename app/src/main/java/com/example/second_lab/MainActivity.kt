@@ -14,27 +14,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Request for cards
         val service = ReceiveService()
-        val items = service.getItems()
-        val receivedModels = service.serializeItems(items)
+        viewModel = ViewModelProvider(this).get(NewTextViewModel::class.java)
 
-//        // Set cards to the recycler view
-//        val ft = supportFragmentManager.beginTransaction()
-//        val fragmentTest = MainFragment(service.getCards(receivedModels))
-//        ft.replace(R.id.fragmentContainerView, fragmentTest)
-//        ft.commit()
-//        val receivedModels: MutableList<ReceiveModel> = listOf<ReceiveModel>().toMutableList()
-//        viewModel = ViewModelProvider(this).get(NewTextViewModel::class.java)
-//
-//        viewModel.newText.observeAsState(this, { newText ->
-//            val title = newText.title
-//        })
-
-        // Set cards to the recycler view
-        val ft = supportFragmentManager.beginTransaction()
-        val fragmentTest = MainFragment(service.getCards(receivedModels))
-        ft.replace(R.id.fragmentContainerView, fragmentTest)
-        ft.commit()
+        viewModel.newText.observe(this) { newText ->
+            val cards = service.getCards(newText)
+            val ft = supportFragmentManager.beginTransaction()
+            val fragmentTest = MainFragment(cards)
+            ft.replace(R.id.fragmentContainerView, fragmentTest)
+            ft.commit()
+        }
+        viewModel.loadNewText()
     }
 }

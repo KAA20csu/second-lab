@@ -6,18 +6,6 @@ import java.net.URL
 
 
 class ReceiveService {
-
-    private val MODELS_DOMAIN = "https://develtop.ru/study/new_text.json"
-    fun getItems() : String {
-        return URL(MODELS_DOMAIN).openStream()
-            .bufferedReader()
-            .use { it.readText() }
-    }
-    fun serializeItems(response: String): List<ReceiveModel> {
-        val mapper = jacksonObjectMapper()
-        return mapper.readValue(response)
-    }
-
     fun getCards(items: List<ReceiveModel>): MutableList<AbstractCard> {
         val cards : MutableList<AbstractCard> = listOf<AbstractCard>().toMutableList()
         for (card in items) {

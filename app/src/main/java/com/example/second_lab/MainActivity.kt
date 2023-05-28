@@ -10,8 +10,9 @@ class MainActivity : AppCompatActivity() {
 
 
     @Inject
+    lateinit var viewModelFactory: NewTextViewModelFactory
     lateinit var viewModel : NewTextViewModel
-    lateinit var viewModelFactory: NewTextViewModel_Factory
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()

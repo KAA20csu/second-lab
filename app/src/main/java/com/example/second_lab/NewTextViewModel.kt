@@ -1,13 +1,10 @@
 package com.example.second_lab
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class NewTextViewModel  @Inject constructor(
+class NewTextViewModel(
     private val useCase: UseCaseInterface
 ): ViewModel() {
     private val _models = MutableLiveData<List<ReceiveModel>>()
@@ -20,5 +17,11 @@ class NewTextViewModel  @Inject constructor(
                 _models.postValue(response)
             }
         }
+    }
+}
+class NewTextViewModelFactory @Inject constructor(private val useCase: UseCaseInterface) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return NewTextViewModel(useCase) as T
     }
 }

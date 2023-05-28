@@ -1,7 +1,9 @@
 package com.example.second_lab
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class UseCaseModule {

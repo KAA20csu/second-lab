@@ -5,7 +5,6 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface JsonApi {
-
     @GET("new_text.json")
     suspend fun getModels(): Response<List<ReceiveModel>>
 }

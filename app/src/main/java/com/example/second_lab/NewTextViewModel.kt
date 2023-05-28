@@ -5,17 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NewTextViewModel: ViewModel() {
-
+class NewTextViewModel  @Inject constructor(
+    private val useCase: UseCaseInterface
+): ViewModel() {
     private val _models = MutableLiveData<List<ReceiveModel>>()
     val newText: LiveData<List<ReceiveModel>> = _models
 
     fun loadNewText() {
         viewModelScope.launch {
-            val response = RetrofitClient.jsonApi.getModels()
-            if (response.isSuccessful) {
-                _models.postValue(response.body())
+            val response = useCase.getModels()
+            if (response != null) {
+                _models.postValue(response)
             }
         }
     }

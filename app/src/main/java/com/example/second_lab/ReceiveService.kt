@@ -1,8 +1,5 @@
 package com.example.second_lab
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import java.net.URL
 
 
 class ReceiveService {

@@ -4,15 +4,23 @@ import android.os.Bundle
 import android.os.StrictMode
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: NewTextViewModel
+
+    @Inject
+    lateinit var viewModel : NewTextViewModel
+    lateinit var viewModelFactory: NewTextViewModel_Factory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val component = DaggerAppComponent.builder()
+            .build()
+        component.inject(this)
 
         val service = ReceiveService()
         viewModel = ViewModelProvider(this).get(NewTextViewModel::class.java)

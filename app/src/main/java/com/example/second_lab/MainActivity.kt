@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: NewTextViewModelFactory
+    @Inject
     lateinit var viewModel : NewTextViewModel
 
 
@@ -19,12 +20,13 @@ class MainActivity : AppCompatActivity() {
         StrictMode.setThreadPolicy(policy)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val component = DaggerAppComponent.builder()
             .build()
         component.inject(this)
 
         val service = ReceiveService()
-        viewModel = ViewModelProvider(this).get(NewTextViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(NewTextViewModel::class.java)
 
         viewModel.newText.observe(this) { newText ->
             val cards = service.getCards(newText)

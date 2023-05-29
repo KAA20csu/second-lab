@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class NewTextViewModel(
+class NewTextViewModel @Inject constructor(
     private val useCase: UseCaseInterface
 ): ViewModel() {
     private val _models = MutableLiveData<List<ReceiveModel>>()

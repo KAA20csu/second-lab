@@ -6,5 +6,5 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [RetrofitClient::class, UseCaseModule::class, AppModule::class])
 interface AppComponent {
-    fun inject(mainActivity: MainActivity)
+    fun inject(mainFragment: MainFragment)
 }

@@ -8,14 +8,23 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.second_lab.databinding.FragmentMainBinding
+import javax.inject.Inject
 import kotlin.random.Random
 
-class MainFragment(val cards : MutableList<AbstractCard>) : Fragment() {
+class MainFragment() : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var adapter: CardAdapter
 
+    @Inject
+    lateinit var viewModelFactory: NewTextViewModelFactory
+    @Inject
+    lateinit var viewModel : NewTextViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val component = DaggerAppComponent.builder()
+            .build()
+        component.inject(this)
     }
 
     override fun onCreateView(
@@ -33,6 +42,11 @@ class MainFragment(val cards : MutableList<AbstractCard>) : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = adapter
         }
-        adapter.submitList(cards)
+        val service = ReceiveService()
+        viewModel.newText.observe(viewLifecycleOwner) { newText ->
+            val cards = service.getCards(newText)
+            adapter.submitList(cards)
+        }
+        viewModel.loadNewText()
     }
 }
